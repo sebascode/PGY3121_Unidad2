@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Acceso</title>
+</head>
+<body>
+    <div class="miformulario">
+        <section>
+            <input id="txtNombre" type="text" placeholder="Nombre" />
+        </section>
+        <section>
+            <input id="txtApellido" type="text" placeholder="Apellido" />
+        </section>
+    </div>
+    <button id="btnEjecutar">Saludar</button>
+    <div id="dvResultado"></div>
+
+    <!-- javascript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(function(){
+            Init();
+            // eventos
+            $('#btnEjecutar').click(function(){
+                const valNombre = Validar('#txtNombre');
+                const valApellido = Validar('#txtApellido');
+
+                if(valNombre && valApellido){
+                    const nombre = $('#txtNombre').val();
+                    const apellido = $('#txtApellido').val();
+                    const saludo = Saludar(nombre, apellido);
+
+                    $('#dvResultado').text(saludo);
+                }
+                else{
+                    alert("Hay errores, no se puede continuar.");
+                }
+            });
+        });
+        function Init(){
+            $('#txtNombre').text('');
+            $('#txtApellido').text('');
+            $('#dvResultado').text('');
+        }
+        function Validar(selector){
+            const obj = $(selector);
+            if(obj.length){
+                // elemento si existe, ahora validamos contenido.
+                if(obj.val() != ""){
+                    // elemento tiene contenido
+                    return true;
+                }
+                else{
+                    alert("El elemento "+ selector + " no posee valor.");
+                    return false;
+                }
+            }
+            // elemento no existe
+            alert("El elemento " + selector + " no existe.");
+            return false;
+        }
+        function Saludar(nombre, apellido){
+            return "Hola " +nombre+" " + apellido+", ¿como estás?";
+        }
+    </script>
+</body>
+</html>
