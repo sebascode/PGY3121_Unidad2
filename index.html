@@ -12,7 +12,7 @@
     </style>
 </head>
 <body>
-    <div id="elemento">
+    <div id="elemento" type="maestro">
         <p>
             asdfasdfsadfdsa <b>asdfasd</b> fas d
         </p>
@@ -29,11 +29,10 @@
             Inicio();
         })
         function Inicio(){
-            // en JS vanilla
-            document.getElementById("elemento").innerText = "Hola soy JS";
+            const obj = $("#elemento");
+            obj.html("<div class='otrodiv'>mi otro div</div>");
 
-            // en jQuery
-            $("#elemento").text("hola soy jquery");
+            obj.append("este un texto que se agregó desde jQuery")
         }
     </script>
 </body>
