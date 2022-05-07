@@ -4,36 +4,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba Concepto JS</title>
-    
-    <style>
-        * { margin: 0 px; padding: 0px; border:none; }
-        #elemento { background: #CFCFCF }
-    </style>
+    <title>Prueba de ajax para API</title>
 </head>
 <body>
-    <div id="elemento" type="maestro">
-        <p>
-            asdfasdfsadfdsa <b>asdfasd</b> fas d
-        </p>
-    </div>
+    <div id="resultado">
 
-    <!-- 
-        JAVASCRIPT
-    div#elemento { text: "asdfasdfsadfdsa asdfasd fas d" }
-    -->
+    </div>
+    
+
+    <!-- TODO SOBRE JAVASCRIPT -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript">
+        // https://pokeapi.co/api/v2/pokemon/ditto
         $(function(){
-            // Acá se ejecuta el código de inicio:
-            Inicio();
-        })
-        function Inicio(){
-            const obj = $("#elemento");
-            obj.html("<div class='otrodiv'>mi otro div</div>");
+            const cont = $('#resultado');
+            const titulo = $('<h1></h1>'); // existe ? no? entonces lo creamos.
+            titulo.text("mi titulo modificado");
+            titulo.addClass("titulo");
 
-            obj.append("este un texto que se agregó desde jQuery")
-        }
+            $('#resultado').append(titulo);
+
+            cont.append("<br />");
+            $.get("https://pokeapi.co/api/v2/pokemon/").done(function(obj){
+                console.log({obj});
+
+                /*
+                const v_img = $("<img />").attr("src", obj.sprites.front_shiny);
+                //$('#resultado').append(obj.sprites.front_default);
+                $('#resultado').append(v_img);
+                $('#resultado').append(obj.name);
+                */
+                if(obj.previous != null){
+                    cont.append("<a href='"+obj.previous+"''>Atrás</a>");
+                }
+                if(obj.next != null){
+                    cont.append("<a href='"+obj.next+"''>Siguiente</a>")
+                }
+                cont.append("<br />");
+                $.each(obj.results, function(index, element){
+                    console.log({element});
+                    cont.append("Pokémon: "+element.name);
+                    cont.append("<a href='"+element.url+"' target='new'>URL</a>");
+                    cont.append("<br />");
+                });
+            })
+
+            /*
+            
+            $('#elemento_con_id') . (function/evento)(function/accion)
+            $('.elemento_con_class') . (function/evento)(function/accion)
+
+            */
+        });
     </script>
 </body>
 </html>
