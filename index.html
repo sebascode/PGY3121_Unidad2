@@ -27,30 +27,51 @@
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
+        <div id="dvPosicion">
+
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript">
         $(function(){
-            // https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=d446a69a9d15ad1fe04d485696dc7635
-            const cont = $('#tarjeta');
+            navigator.geolocation.getCurrentPosition(showPosition);
 
-            $.get("https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=d446a69a9d15ad1fe04d485696dc7635")
+
+            const arr = [
+                {
+                    id: "sol",
+                    imagen: "url.png"
+                },
+                {
+                    id: "lluvia",
+                    imagen: "lluvia.png"
+                }
+            ];
+            
+            const result = arr.find(function(x){
+                return x.id == "sol";
+            })
+            console.log({result});
+        });
+        function showPosition(position){
+            const pos = "Latitude: " + position.coords.latitude + 
+            "<br />Longitude: " + position.coords.longitude; 
+            $('#dvPosicion').html(pos);
+
+            const cont = $('#tarjeta');
+            const url = "https://api.openweathermap.org/data/2.5/weather?lat="+ position.coords.latitude +"&lon="+position.coords.longitude+"&appid=d446a69a9d15ad1fe04d485696dc7635&lang=es"
+            $.get(url)
                 .done(function(obj){
-                    console.log({obj});
+                    const clima = obj.weather[0];
+                    console.log({obj, clima});
+                    cont.find('.card-title').text(clima.main);
+                    cont.find('.card-text').text(clima.description);
+                    cont.find('.card-img-top').attr("src", "img/"+clima.main+".png");
                 }
             );
-
-            $.get("demo.json").done(function(elemento){
-                console.log(elemento);
-            })
-
-            $.ajax({
-                type: "GET",
-                
-            })
-        })
+        }
     </script>
 </body>
 </html>
