@@ -1,0 +1,18 @@
+{
+    "name": "Sebastián",
+    "Apellido": "Contreras",
+    "Cargos": [
+        { 
+            "cargo": "Arquitecto de Aplicaciones",
+            "empresa": "Accenture"
+        },
+        { 
+            "cargo": "Lider TI",
+            "empresa": "Accenture"
+        },
+        { 
+            "cargo": "Docente de Informática",
+            "empresa": "Duoc UC"
+        }
+    ]
+}
