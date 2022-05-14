@@ -56,12 +56,27 @@
 
     <div class="container">
         <br>
-        <img src="#" width="150" />
-        <h1 id="txtNombre">Pikachu</h1>
+        <audio src="src/audio/cancion.mp3" autoplay loop></audio>
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner" id="sprite_content">
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <h1 id="txtNombre" style="text-transform:capitalize">Pikachu</h1>
 
         <div class="row">
             <div class="col-3">
-                
+
             </div>
         </div>
     </div>
@@ -78,8 +93,22 @@
     <script type="text/javascript">
         const url = "https://pokeapi.co/api/v2/pokemon/ditto";
         $(function () {
-            $.get(url, function(obj){
-                console.log({obj});
+
+            $.get(url, function (obj) {
+                console.log({ obj });
+                const spriteContent = $('#sprite_content');
+
+                $('#txtNombre').text(obj.name);
+
+                $.each(obj.sprites, function (i, element) {
+                    if (!!element && typeof element != "object" ) {
+                        const img = $('<img />', { src: element, class: "d-block" });
+                        const dv = $('<div />', { class: "carousel-item" });
+                        console.log({img}, img.prop("src"))
+                        dv.append(img);
+                        spriteContent.append(dv);
+                    }
+                });
             })
         });
     </script>
