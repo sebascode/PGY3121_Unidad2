@@ -68,7 +68,47 @@
     <div class="container">
         <h1>Pokemones Disponibles:</h1>
 
-        <div class="row" id="onload">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Pikachu</h5>
+                        <a href="#" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Chorizard</h5>
+                        <a href="#" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Chorizard</h5>
+                        <a href="#" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Chorizard</h5>
+                        <a href="#" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Chorizard</h5>
+                        <a href="#" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -82,85 +122,30 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script type="text/javascript">
-        const urlBase = "https://pokeapi.co/api/v2/pokemon/";
+        // https://pokeapi.co/api/v2/pokemon/ditto
         $(function () {
-            cargarLista(urlBase);
+            /*
+            const cont = $('#resultado');
+            const titulo = $('<h1></h1>'); // existe ? no? entonces lo creamos.
+            titulo.text("mi titulo modificado");
+            titulo.addClass("titulo");
 
-            $(document).on('click', '#btnPrevio',function(){
-                const url = $(this).data('url');
-                console.log({url});
-                cargarLista(url);
-            });
-            
-            $(document).on('click', '#btnSiguiente',function(){
-                const url = $(this).data('url');
-                console.log({url});
-                cargarLista(url);
-            })
-        });
-        function cargarLista(url){
-            const cont = $('#onload');
-            const claseLargo = "col-sm-3";
+            $('#resultado').append(titulo);
 
-            $.get(url).done(function(obj){
-                cont.html("");
-
+            cont.append("<br />");
+            $.get("https://pokeapi.co/api/v2/pokemon/").done(function(obj){
                 console.log({obj});
-                
-                const next = obj.next;
-                const previous = obj.previous;
-                const divBotones = $('<div />', {
-                    class: "col-sm-12"
-                });
-                if(!!next){
-                    // existe
-                    const vinculoNext = $('<a />', {
-                        text: "Siguiente",
-                        href: "#",
-                        class: "btn btn-success",
-                        id: "btnSiguiente"
-                    }).data('url', next);
 
-                    divBotones.append(vinculoNext);
-                }
-                if(!!previous){
-                    // existe
-                    const vinculoPrev = $('<a />', {
-                        text: "Anterior",
-                        href: "#",
-                        class: "btn btn-success",
-                        id: "btnPrevio"
-                    }).data('url', previous);
-
-                    divBotones.append(vinculoPrev);
-                }
-                cont.append(divBotones);
                 cont.append("<br />");
-
-
-                $.each(obj.results, function(indice, valor){
-                    const titulo = $('<h5 />', {
-                        text: valor.name
-                    });
-                    const vinculo = $('<a />', {
-                        text: "Ir",
-                        href: "ficha_pokemon.html",
-                        class: "btn btn-primary"
-                    }).data('url', valor.url);
-
-                    const divCard = $('<div />',{
-                        class: "card"
-                    }).append($('<div />',{ class: "card-body" }));
-
-                    divCard.find('.card-body').append(titulo);
-                    divCard.find('.card-body').append(vinculo);
-
-                    cont.append($('<div />', {
-                       class: claseLargo 
-                    }).append(divCard));
+                $.each(obj.results, function(index, element){
+                    console.log({element});
+                    cont.append("Pokémon: "+element.name);
+                    cont.append("<a href='"+element.url+"' target='new'>URL</a>");
+                    cont.append("<br />");
                 });
             });
-        }
+            */
+        });
     </script>
 </body>
 
