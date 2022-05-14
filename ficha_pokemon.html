@@ -57,26 +57,17 @@
     <div class="container">
         <br>
         <audio src="src/audio/cancion.mp3" autoplay loop></audio>
-        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-inner" id="sprite_content">
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+        
+        <div class="row" id="sprite_content">
         </div>
 
         <h1 id="txtNombre" style="text-transform:capitalize">Pikachu</h1>
 
         <div class="row">
             <div class="col-3">
+                <div id="listadoMovimientos">
 
+                </div>
             </div>
         </div>
     </div>
@@ -93,8 +84,10 @@
     <script type="text/javascript">
         const url = "https://pokeapi.co/api/v2/pokemon/ditto";
         $(function () {
+            const ls = window.localStorage;
+            const uri = ls.getItem("pokemon_uri");
 
-            $.get(url, function (obj) {
+            $.get(uri, function (obj) {
                 console.log({ obj });
                 const spriteContent = $('#sprite_content');
 
@@ -102,13 +95,25 @@
 
                 $.each(obj.sprites, function (i, element) {
                     if (!!element && typeof element != "object" ) {
-                        const img = $('<img />', { src: element, class: "d-block" });
-                        const dv = $('<div />', { class: "carousel-item" });
-                        console.log({img}, img.prop("src"))
+                        const img = $('<img />', { src: element, class: "d-block", alt: element });
+                        const dv = $('<div />', { class: "col-3" });
+                        
                         dv.append(img);
                         spriteContent.append(dv);
                     }
                 });
+
+                // listadoMovimientos
+                const movimientos = $('#listadoMovimientos');
+
+                const lista = $("<ul />");
+                $.each(obj.abilities, function(i, e){
+                    console.log({e});
+                    lista.append(
+                        $('<li />', { text: e.ability.name })
+                    );
+                });
+                movimientos.append(lista);
             })
         });
     </script>

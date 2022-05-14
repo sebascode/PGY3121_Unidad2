@@ -73,20 +73,29 @@
         crossorigin="anonymous"></script>
     <script type="text/javascript">
         const urlBase = "https://pokeapi.co/api/v2/pokemon/";
+        const ls = window.localStorage;
         $(function () {
-            cargarLista(urlBase);
+            const url = ls.getItem("url_back");
+            cargarLista(url || urlBase);
 
             $(document).on('click', '#btnPrevio',function(){
                 const url = $(this).data('url');
-                console.log({url});
                 cargarLista(url);
+                ls.setItem("url_back", url);
             });
             
             $(document).on('click', '#btnSiguiente',function(){
                 const url = $(this).data('url');
                 console.log({url});
                 cargarLista(url);
+                ls.setItem("url_back", url);
             })
+
+            $(document).on('click', ".linkPokemon", function(e){
+                //e.preventDefault();
+                const url = $(this).data("url");
+                ls.setItem("pokemon_uri", url);
+            });
         });
         function cargarLista(url){
             const cont = $('#onload');
@@ -94,25 +103,13 @@
 
             $.get(url).done(function(obj){
                 cont.html("");
-
-                console.log({obj});
                 
                 const next = obj.next;
                 const previous = obj.previous;
                 const divBotones = $('<div />', {
                     class: "col-sm-12"
                 });
-                if(!!next){
-                    // existe
-                    const vinculoNext = $('<a />', {
-                        text: "Siguiente",
-                        href: "#",
-                        class: "btn btn-success",
-                        id: "btnSiguiente"
-                    }).data('url', next);
 
-                    divBotones.append(vinculoNext);
-                }
                 if(!!previous){
                     // existe
                     const vinculoPrev = $('<a />', {
@@ -123,6 +120,17 @@
                     }).data('url', previous);
 
                     divBotones.append(vinculoPrev);
+                }
+                if(!!next){
+                    // existe
+                    const vinculoNext = $('<a />', {
+                        text: "Siguiente",
+                        href: "#",
+                        class: "btn btn-success",
+                        id: "btnSiguiente"
+                    }).data('url', next);
+
+                    divBotones.append(vinculoNext);
                 }
                 cont.append(divBotones);
                 cont.append("<br />");
@@ -135,7 +143,8 @@
                     const vinculo = $('<a />', {
                         text: "Ir",
                         href: "ficha_pokemon.html",
-                        class: "btn btn-primary"
+                        class: "btn btn-primary linkPokemon",
+                        id: "pokemon-"+indice,
                     }).data('url', valor.url);
 
                     const divCard = $('<div />',{
