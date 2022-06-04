@@ -15,11 +15,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Cetecom\\source\\repos\\SolucionPrueba\\Veterinaria.Web\\Veterinaria.Web.csproj",
-      "projectName": "Veterinaria.Web",
-      "projectPath": "C:\\Users\\Cetecom\\source\\repos\\SolucionPrueba\\Veterinaria.Web\\Veterinaria.Web.csproj",
+      "projectUniqueName": "C:\\Users\\Cetecom\\Source\\Repos\\sebascode\\PGY3121_Unidad2\\Veterinaria.Web\\Pokedex.Web.csproj",
+      "projectName": "Pokedex.Web",
+      "projectPath": "C:\\Users\\Cetecom\\Source\\Repos\\sebascode\\PGY3121_Unidad2\\Veterinaria.Web\\Pokedex.Web.csproj",
       "packagesPath": "C:\\Users\\Cetecom\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Cetecom\\source\\repos\\SolucionPrueba\\Veterinaria.Web\\obj\\",
+      "outputPath": "C:\\Users\\Cetecom\\Source\\Repos\\sebascode\\PGY3121_Unidad2\\Veterinaria.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -71,7 +71,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
   }

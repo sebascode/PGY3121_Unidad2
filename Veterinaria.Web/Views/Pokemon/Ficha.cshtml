@@ -1,0 +1,20 @@
+﻿@model Pokemon
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>esChainih</th>
+        <th>Tipo</th>
+        <th>Altura</th>
+        <th>Peso</th>
+    </tr>
+    <tr>
+        <td>@Model.ID</td>
+        <td>@Model.Nombre</td>
+        <td>@(Model.esChainih ? "Si" : "No")</td>
+        <td>@Model.Tipo</td>
+        <td>@Model.Altura cm.</td>
+        <td>@Model.Peso Kg.</td>
+    </tr>
+</table>

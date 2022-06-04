@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Veterinaria.Web.Models;
+using Pokedex.Web.Models;
 
-namespace Veterinaria.Web.Controllers
+namespace Pokedex.Web.Controllers
 {
     public class HomeController : Controller
     {

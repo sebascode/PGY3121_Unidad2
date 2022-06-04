@@ -1,6 +1,6 @@
 using System;
 
-namespace Veterinaria.Web.Models
+namespace Pokedex.Web.Models
 {
     public class ErrorViewModel
     {
