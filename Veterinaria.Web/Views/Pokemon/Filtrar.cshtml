@@ -1,0 +1,24 @@
+﻿@model IList<Pokemon>
+
+<input class="input" type="text" id="txtBuscador" placeholder="Buscador" />
+<button id="btnBuscar" class="btn btn-info" onclick="RedirectUri()">Buscar</button>
+
+<br /><br />
+<h1>Pokemones filtrados</h1>
+<br />
+<ul class="list-group">
+    @foreach (Pokemon item in Model)
+    {
+        <li class="list-group-item">
+            @item.Nombre, Tipo: @item.Tipo, Peso: @item.Peso
+        </li>
+    }
+</ul>
+
+<script type="text/javascript">
+    function RedirectUri() {
+        const texto = document.getElementById("txtBuscador").value;
+        console.log(texto);
+        window.location.href = "/Pokemon/Filtrar/" + texto;
+    }
+</script>

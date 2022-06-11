@@ -54,16 +54,6 @@ namespace Pokedex.Web.Servicio
                     esChainih = false,
                     Imagen = "https://images.wikidexcdn.net/mwuploads/wikidex/thumb/b/b4/latest/20191101221107/EP1090_Mew.png/1200px-EP1090_Mew.png"
                 },
-                new Pokemon
-                {
-                    ID = 5,
-                    Nombre = "Mewtwo Con Armadura",
-                    Altura = 200,
-                    Peso = 90,
-                    Tipo = "Psíquico",
-                    esChainih = false,
-                    Imagen = "https://static.wikia.nocookie.net/pokemonreloaded/images/4/4e/MewtwoArmadura.png"
-                },
             };
         }
 
@@ -105,6 +95,12 @@ namespace Pokedex.Web.Servicio
                 Altura = obj.Altura,
                 esChainih = obj.esChainih
             };
+        }
+
+        public IList<Pokemon> FiltrarPorTipo(string Tipo)
+        {
+            IList<Pokemon> resultado = list.Where(x => x.Tipo == Tipo).ToList();
+            return resultado;
         }
     }
 }

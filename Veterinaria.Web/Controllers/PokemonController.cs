@@ -24,5 +24,12 @@ namespace Pokedex.Web.Controllers
 
             return View(obj);
         }
+
+        public IActionResult Filtrar(string id)
+        {
+            IList<Pokemon> pokemons = app.FiltrarPorTipo(id);
+
+            return View(pokemons);
+        }
     }
 }
