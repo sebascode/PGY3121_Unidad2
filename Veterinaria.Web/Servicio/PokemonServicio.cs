@@ -3,104 +3,110 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Pokedex.Web.Models;
+using System.Data.SqlClient;
 
 namespace Pokedex.Web.Servicio
 {
     public class PokemonServicio : IServicio<Pokemon>
     {
-        IList<Pokemon> list = new List<Pokemon>();
+        private string Connection;
 
-        public PokemonServicio()
+        public PokemonServicio(string ConnectionString)
         {
-            list = new List<Pokemon>
-            {
-                new Pokemon
-                {
-                    ID = 1,
-                    Nombre = "Pikachu",
-                    Altura = 60,
-                    Peso = 5,
-                    Tipo = "Eléctrico",
-                    esChainih = false,
-                    Imagen = "https://static.wikia.nocookie.net/espokemon/images/7/77/Pikachu.png"
-                },
-                new Pokemon
-                {
-                    ID = 2,
-                    Nombre = "Bullbasaur",
-                    Altura = 30,
-                    Peso = 7,
-                    Tipo = "Planta",
-                    esChainih = false,
-                    Imagen = "https://static.wikia.nocookie.net/videojuego/images/4/43/Bulbasaur.png"
-                },
-                new Pokemon
-                {
-                    ID = 3,
-                    Nombre = "Rayquaza",
-                    Altura = 160,
-                    Peso = 200,
-                    Tipo = "Dragon/Volador",
-                    esChainih = false,
-                    Imagen = "https://static.wikia.nocookie.net/espokemon/images/6/66/Rayquaza.png"
-                },
-                new Pokemon
-                {
-                    ID = 4,
-                    Nombre = "Mew",
-                    Altura = 30,
-                    Peso = 2,
-                    Tipo = "Psíquico",
-                    esChainih = false,
-                    Imagen = "https://images.wikidexcdn.net/mwuploads/wikidex/thumb/b/b4/latest/20191101221107/EP1090_Mew.png/1200px-EP1090_Mew.png"
-                },
-            };
+            this.Connection = ConnectionString;
         }
 
         public void Create(Pokemon obj)
         {
-            list.Add(obj);
         }
 
         public void Delete(int id)
         {
-            Pokemon obj = list.FirstOrDefault(x => x.ID == id);
-            if (obj != null)
-            {
-                list.Remove(obj);
-            }
+            
         }
 
         public Pokemon Get(int id)
         {
-            Pokemon obj = list.FirstOrDefault(x => x.ID == id);
-            return obj;
+            Pokemon pokemon = new Pokemon();
+
+            using (SqlConnection server = new SqlConnection(this.Connection))
+            {
+                server.Open();
+
+                string query = string.Format("Select Id_Pokemon, Nombre, Altura, Peso, Tipo, Imagen, EsChainih FROM Pokemon;");
+                using (SqlCommand cmd = new SqlCommand(query, server))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            //Console.WriteLine("{0} {1}", reader.GetString(0), reader.GetString(1));
+                            pokemon = new Pokemon()
+                            {
+                                ID = reader.GetInt32(0),
+                                Nombre = reader.GetString(1),
+                                Altura = reader.GetInt32(2),
+                                Peso = reader.GetInt32(3),
+                                Tipo = reader.GetString(4),
+                                Imagen = reader.GetString(5),
+                                esChainih = reader.GetBoolean(6)
+                            };
+                        }
+                    }
+                }
+
+                server.Close();
+            }
+
+            return pokemon;
         }
 
         public IList<Pokemon> GetAll()
         {
-            return list;
+            IList<Pokemon> lista = new List<Pokemon>();
+
+            using(SqlConnection server = new SqlConnection(this.Connection))
+            {
+                server.Open();
+
+                string query = string.Format("Select Id_Pokemon, Nombre, Altura, Peso, Tipo, Imagen, EsChainih FROM Pokemon;");
+                using (SqlCommand cmd = new SqlCommand(query, server))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            //Console.WriteLine("{0} {1}", reader.GetString(0), reader.GetString(1));
+                            lista.Add(new Pokemon()
+                            {
+                                ID = reader.GetInt32(0),
+                                Nombre = reader.GetString(1),
+                                Altura = reader.GetInt32(2),
+                                Peso = reader.GetInt32(3),
+                                Tipo = reader.GetString(4),
+                                Imagen = reader.GetString(5),
+                                esChainih = reader.GetBoolean(6)
+                            });
+                        }
+                    }
+                }
+
+                server.Close();
+            }
+
+            return lista;
         }
 
         public void Update(Pokemon obj)
         {
-            Pokemon pokemon = list.FirstOrDefault(x => x.ID == obj.ID);
 
-            pokemon = new Pokemon
-            {
-                Nombre = obj.Nombre,
-                Peso = obj.Peso,
-                Tipo = obj.Tipo,
-                Imagen = obj.Imagen,
-                Altura = obj.Altura,
-                esChainih = obj.esChainih
-            };
         }
 
         public IList<Pokemon> FiltrarPorTipo(string Tipo)
         {
-            IList<Pokemon> resultado = list.Where(x => x.Tipo == Tipo).ToList();
-            return resultado;
+            IList<Pokemon> lista = this.GetAll();
+
+            return lista.Where(x => x.Tipo == Tipo).ToList();
         }
     }
 }
